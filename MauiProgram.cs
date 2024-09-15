@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using TodoSQLite.Data;
+using TodoSQLite.Views;
 
 namespace TodoSQLite
 {
@@ -15,8 +17,13 @@ namespace TodoSQLite
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<TodoListPage>();
+            builder.Services.AddTransient<TodoItemPage>();
+
+            builder.Services.AddSingleton<TodoItemDatabase>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
